@@ -1,19 +1,24 @@
+const correctGridDimensions = 9 * 9
+
 const doneOrNot = (sudokoGrid) => {
-    return getGridTotal(sudokoGrid) === 81 &&
-        getGridTotal(transpose(sudokoGrid)) === 81 &&
-        getGridTotal(getCubes(sudokoGrid)) === 81
+    return getGridTotal(sudokoGrid) === correctGridDimensions &&
+        getGridTotal(transpose(sudokoGrid)) === correctGridDimensions &&
+        getGridTotal(getCubes(sudokoGrid)) === correctGridDimensions ?
+        'Finished!' : 'Try again!'
 }
 
 const getGridTotal = (sudokoGrid) => {
     return sudokoGrid.map(row => new Set(row))
-        .map(x => x.size)
-        .reduce((x, y) => x + y)
+        .map(row => row.size)
+        .reduce((tempGrid, cell) => tempGrid + cell)
 }
 
 const transpose = (sudokoGrid) => {
     return sudokoGrid.map((col, i) => sudokoGrid.map(row => row[i]))
 }
 
+
+//TODO refactor this horror show
 const getCubes = (sudokoGrid) => {
     let one = [];
     let two = [];
