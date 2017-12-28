@@ -3,7 +3,7 @@ const correctGridDimensions = 9 * 9
 const doneOrNot = (sudokoGrid) => {
     return getGridTotal(sudokoGrid) === correctGridDimensions &&
         getGridTotal(transpose(sudokoGrid)) === correctGridDimensions &&
-        getGridTotal(getCubes(sudokoGrid)) === correctGridDimensions ?
+        getGridTotal(getRegions(sudokoGrid)) === correctGridDimensions ?
         'Finished!' : 'Try again!'
 }
 
@@ -17,9 +17,8 @@ const transpose = (sudokoGrid) => {
     return sudokoGrid.map((col, i) => sudokoGrid.map(row => row[i]))
 }
 
-
 //TODO refactor this horror show
-const getCubes = (sudokoGrid) => {
+const getRegions = (sudokoGrid) => {
     let one = [];
     let two = [];
     let three = [];
@@ -31,18 +30,20 @@ const getCubes = (sudokoGrid) => {
         }
     }
     let cubes = [...one, ...two, ...three]
+    return createRegionsGrid(cubes)
+}
 
-    let i, j, cubesNew = [], chunk = 9;
-    for (i = 0, j = cubes.length; i < j; i += chunk) {
-        cubesNew.push(cubes.slice(i, i + chunk));
+const createRegionsGrid = (regions) => {
+let i, j, cubesNew = [], chunk = 9;
+    for (i = 0, j = regions.length; i < j; i += chunk) {
+        cubesNew.push(regions.slice(i, i + chunk));
     }
     return cubesNew
 }
-
 
 module.exports = {
     doneOrNot: doneOrNot,
     getGridTotal: getGridTotal,
     transpose: transpose,
-    getCubes: getCubes
+    getRegions: getRegions
 }

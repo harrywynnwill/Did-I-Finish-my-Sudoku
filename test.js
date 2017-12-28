@@ -33,7 +33,8 @@ assert.equal(doneOrNot.getGridTotal(doneOrNot.transpose([[5, 3, 4, 6, 7, 8, 9, 1
 
 assert.deepEqual(doneOrNot.transpose([[1, 2], [1, 2]]), [[1, 1], [2, 2]])
 
-assert.deepEqual(doneOrNot.getCubes(
+
+assert.deepEqual(doneOrNot.getRegions(
     [[5, 3, 4, 6, 7, 8, 9, 1, 2],
     [6, 7, 2, 1, 9, 5, 3, 4, 8],
     [1, 9, 8, 3, 4, 2, 5, 6, 7]]),
